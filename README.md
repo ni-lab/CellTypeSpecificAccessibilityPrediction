@@ -15,7 +15,8 @@ Several different datasets and pre-trained models are used in these analyses. Th
 #### Enformer
 
 * The pre-trained Enformer model can be downloaded from TFhub ([link](https://tfhub.dev/deepmind/enformer/1))
-* Enformer training, validation and test data can be downloaded from Google Cloud ([link](https://console.cloud.google.com/storage/browser/basenji_barnyard/data)). Note: This data is ~320 GB and is in a requester pays bucket. 
+* Enformer training, validation and test data can be downloaded from Google Cloud ([link](https://console.cloud.google.com/storage/browser/basenji_barnyard/data)). Note: This data is ~320 GB and is in a requester pays bucket.
+* Pre-computed variant effect predictions for all frequent variants in the 1000 genomes cohort (MAF>0.05% in any population) can be downloaded from Google Cloud ([link](https://console.cloud.google.com/storage/browser/dm-enformer/variant-scores/1000-genomes/enformer;tab=objects?prefix=&forceOnObjectsSortingFiltering=false)). Note: this data is ~100GB.
 
 #### Sei
 
