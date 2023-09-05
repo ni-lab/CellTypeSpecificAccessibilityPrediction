@@ -1,0 +1,7 @@
+2443    "Diabetes diagnosed by doctor"    https://nealelab.github.io/UKBB_ldsc/h2_summary_2443.html
+6152_8    "Blood clot, DVT, bronchitis, emphysema, asthma, rhinitis, eczema, allergy diagnosed by doctor: Asthma"    https://nealelab.github.io/UKBB_ldsc/h2_summary_6152_8.html
+50_irnt	"Standing height"	https://nealelab.github.io/UKBB_ldsc/h2_summary_50_irnt.html
+23104_irnt	"Body mass index (BMI)"	https://nealelab.github.io/UKBB_ldsc/h2_summary_23104_irnt.html
+6152_9	"Blood clot, DVT, bronchitis, emphysema, asthma, rhinitis, eczema, allergy diagnosed by doctor: Hayfever, allergic rhinitis or eczema"	https://nealelab.github.io/UKBB_ldsc/h2_summary_6152_9.html
+20116_0	"Smoking status: Never"	https://nealelab.github.io/UKBB_ldsc/h2_summary_20116_0.html
+78_irnt	"Heel bone mineral density (BMD) T-score, automated"	https://nealelab.github.io/UKBB_ldsc/h2_summary_78_irnt.html
