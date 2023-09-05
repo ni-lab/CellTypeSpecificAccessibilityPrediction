@@ -12,6 +12,9 @@ This code has been tested on Python 3.7, and also makes use of Tensorflow 2.1. P
 
 Several different datasets and pre-trained models are used in these analyses. The following instructions can be used to download the relevant resources.
 
+TODO: Figure out how to host resources for download
+Much of the processed data and resources used in this repository can be found in the resources directory, and you will need to download the resources.zip from XXXXX. This includes the model parameters and model weights of tissue-specific models, and various data used for evaluating performance in different peak regions. Details on how to download additional resources, such pre-trained models and large datasets hosted elsewhere, are described below.
+
 #### Enformer
 
 * The pre-trained Enformer model can be downloaded from TFhub ([link](https://tfhub.dev/deepmind/enformer/1))
@@ -38,3 +41,5 @@ Several different datasets and pre-trained models are used in these analyses. Th
 * UK Biobank GWAS summary statistics can be downloaded from the Neale lab server using the `download_gwas_sumstats.sh` script ([link]())
 
 ## Analysis
+
+Within the `scripts/` directory, a README within each subfolder describes how to perform the relevant analysis.
