@@ -1,0 +1,1 @@
+After installing the necessary requirements listed in the [sei-framework repository](https://github.com/FunctionLab/sei-framework), the `predict_gtex_eqtls.sh` script can be used to generate predictions for GTeX SuSie fine-mapped eQTL data (the dataset can be downloaded [here](https://console.cloud.google.com/storage/browser/dm-enformer/data/gtex_fine)).
