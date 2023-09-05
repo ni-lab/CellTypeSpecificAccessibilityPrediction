@@ -32,13 +32,13 @@ Much of the processed data and resources used in this repository can be found in
 
 #### Calderon et al. data ([reference](https://www.nature.com/articles/s41588-019-0505-9))
 
-* Bigwig files used to train models can be S3 using the `download_calderon_bigwigs.sh` script ([link]())
+* Bigwig files used to train models can be S3 using the `download_bigwigs.sh` script ([link](https://github.com/ni-lab/CellTypeSpecificAccessibilityPrediction/blob/main/scripts/tissue_specific_models/preprocess_calderon_data/download_bigwigs.sh))
 * Cell type specific peaks and allelic imbalance data can be found in [Supplementary Table 1](https://static-content.springer.com/esm/art%3A10.1038%2Fs41588-019-0505-9/MediaObjects/41588_2019_505_MOESM3_ESM.xlsx) of [Calderon et al. (2019)](https://www.nature.com/articles/s41588-019-0505-9). Cell type specific peaks are found in the sheet `lineage_groups` and allelic imbalance data is found in the sheet `significant_ASCs`.
 
 #### Additional benchmark datasets
 
 * GTeX SuSie fine-mapped eQTL data from [Wang et al. (2021)](https://www.nature.com/articles/s41592-021-01252-x#ref-CR22) and [Avsec et al. (2021)](https://www.nature.com/articles/s41592-021-01252-x) can be downloaded from Google Cloud ([link](https://console.cloud.google.com/storage/browser/dm-enformer/data/gtex_fine))
-* UK Biobank GWAS summary statistics can be downloaded from the Neale lab server using the `download_gwas_sumstats.sh` script ([link]())
+* UK Biobank GWAS summary statistics can be downloaded from the Neale lab server using the `download_gwas_sumstats.sh` script ([link](https://github.com/ni-lab/CellTypeSpecificAccessibilityPrediction/blob/main/scripts/enformer/ldsc/download_gwas_sumstats.sh))
 
 ## Analysis
 
