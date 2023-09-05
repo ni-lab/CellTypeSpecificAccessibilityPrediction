@@ -1,7 +1,7 @@
 astropy
+coolbox
 cooler
 cooltools
-coolbox
 h5py
 joblib
 intervaltree
@@ -17,5 +17,6 @@ qnorm
 seaborn
 scikit-learn
 scipy
+snakemake
 statsmodels
 tqdm
