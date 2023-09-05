@@ -1,0 +1,72 @@
+data_dirs:
+    kidney_data:
+        multitask:
+            all_sequences: /clusterfs/nilah/pooja/kidney_data/kidney_sc_data_processed_bigwigs_holdout_chrs
+            remove_non_peaks: /clusterfs/nilah/pooja/kidney_data/limit_peaks_train_data_experiments/kidney_sc_data_processed_bigwigs_multitask_remove_non_peaks_holdout_chrs
+            remove_non_peaks_ubiq_peaks: /clusterfs/nilah/pooja/kidney_data/limit_peaks_train_data_experiments/kidney_sc_data_processed_bigwigs_multitask_remove_non_peaks_and_ubiq_peaks_holdout_chrs
+            1_1_peaks_non_peaks: /clusterfs/nilah/pooja/kidney_data/kmer_analysis/kidney_sc_data_processed_bigwigs_1_1_peaks_non_peaks_holdout_chrs
+            1_1_gc_matched: /clusterfs/nilah/pooja/kidney_data/kmer_analysis/kidney_sc_data_processed_bigwigs_gc_matched_holdout_chrs
+        single_task:
+            all_sequences: /clusterfs/nilah/pooja/kidney_data/single_task_models_processed/{cell_type}_bigwig_holdout_chrs
+            remove_non_peaks: /clusterfs/nilah/pooja/kidney_data/single_task_models_processed/limit_peaks_train_data_experiments/{cell_type}_remove_non_peaks_holdout_chrs
+            remove_non_peaks_ubiq_peaks: /clusterfs/nilah/pooja/kidney_data/single_task_models_processed/limit_peaks_train_data_experiments/{cell_type}_remove_non_peaks_and_ubiq_peaks_holdout_chrs
+            1_1_peaks_non_peaks: /clusterfs/nilah/pooja/kidney_data/kmer_analysis/kidney_sc_data_processed_bigwigs_single_task_{cell_type}_1_1_peaks_non_peaks_holdout_chrs
+            1_1_gc_matched: /clusterfs/nilah/pooja/kidney_data/kmer_analysis/kidney_sc_data_processed_bigwigs_single_task_{cell_type}_gc_matched_holdout_chrs
+    immune_atlas:
+        multitask:
+            all_sequences: /clusterfs/nilah/pooja/immune_atlas/all_sequences_processed_float32
+            remove_non_peaks: /clusterfs/nilah/pooja/immune_atlas/limit_peaks_processed_float32
+            remove_non_peaks_ubiq_peaks: /clusterfs/nilah/pooja/immune_atlas/limit_nonubiq_peaks_processed_float32
+            1_1_peaks_non_peaks: /clusterfs/nilah/pooja/immune_atlas/kmer_analysis/multitask__1_1_peaks_non_peaks
+            1_1_gc_matched: /clusterfs/nilah/pooja/immune_atlas/kmer_analysis/multitask__gc_matched
+        single_task:
+            all_sequences: /clusterfs/nilah/pooja/immune_atlas/single_task_processed/{cell_type}_single_task_processed_float32
+            remove_non_peaks: /clusterfs/nilah/pooja/immune_atlas/single_task_processed/limit_peaks_train_data_experiments/{cell_type}_single_task_removed_non_peaks_processed_float32
+            remove_non_peaks_ubiq_peaks: /clusterfs/nilah/pooja/immune_atlas/single_task_processed/limit_peaks_train_data_experiments/{cell_type}_single_task_remove_non_peaks_and_ubiq_peaks_processed_float32
+            1_1_peaks_non_peaks: /clusterfs/nilah/pooja/immune_atlas/kmer_analysis/single_task__{cell_type}__1_1_peaks_non_peaks
+            1_1_gc_matched: /clusterfs/nilah/pooja/immune_atlas/kmer_analysis/single_task__{cell_type}__gc_matched
+float_type:
+    kidney_data:
+        multitask:
+            all_sequences: float16
+            remove_non_peaks: float32
+            remove_non_peaks_ubiq_peaks: float32
+            1_1_peaks_non_peaks: float32
+            1_1_gc_matched: float32
+        single_task:
+            all_sequences: float16
+            remove_non_peaks: float32
+            remove_non_peaks_ubiq_peaks: float32
+            1_1_peaks_non_peaks: float32
+            1_1_gc_matched: float32
+    immune_atlas:
+        multitask:
+            all_sequences: float32
+            remove_non_peaks: float32
+            remove_non_peaks_ubiq_peaks: float32
+            1_1_peaks_non_peaks: float32
+            1_1_gc_matched: float32
+
+        single_task:
+            all_sequences: float32
+            remove_non_peaks: float32
+            remove_non_peaks_ubiq_peaks: float32
+            1_1_peaks_non_peaks: float32
+            1_1_gc_matched: float32
+
+genome:
+  kidney_data: hg38
+  immune_atlas: hg19
+
+cluster_dir:
+  kidney_data: /clusterfs/nilah/pooja/kidney_data/CellTypeSpecificPeakClusters_ArchR_clust11
+  immune_atlas: /clusterfs/nilah/pooja/immune_atlas/CellTypeSpecificPeakClusters
+
+cluster_list:
+  kidney_data: all_sequences,cluster1_CD,cluster2_Immune,cluster3_Ubiquitous,cluster4_DistalNephron,cluster6_PanTubule,cluster7_Tcell,cluster8_PanNonEpithelial,cluster9_Stroma,cluster10_Endothelial,cluster11_PT,cluster12_podocyte
+  immune_atlas: all_sequences,cluster_B_resting,cluster_EPI_resting,cluster_T_resting,cluster_myeloid_resting,cluster_nk_resting,cluster_open,cluster_progenitor_resting,cluster_thymo_resting
+
+imbalance_dir:
+  kidney_data: /clusterfs/nilah/pooja/kidney_data/allelic_imbalance/raw/astestq10tab/cluster_imbalance_sets
+  immune_atlas: /clusterfs/nilah/pooja/immune_atlas/allelic_imbalance/data/cluster_imbalance_sets
+

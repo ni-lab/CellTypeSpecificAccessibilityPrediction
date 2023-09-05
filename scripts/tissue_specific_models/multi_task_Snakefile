@@ -1,0 +1,137 @@
+configfile: "config.yaml"
+root_dir="/clusterfs/nilah/pooja"
+#tasks="multitask"
+#DATASETS=["kidney_data", "immune_atlas"]
+#REPLICATES=[1,2,3]
+
+def get_data_dir(wildcards):
+    return config["data_dirs"][wildcards.dataset][wildcards.tasks][wildcards.peaks]
+
+def get_float_type(wildcards):
+    return config["float_type"][wildcards.dataset][wildcards.tasks][wildcards.peaks]
+
+def get_genome(wildcards):
+	return config["genome"][wildcards.dataset]
+def get_cluster_dir(wildcards):
+	return config["cluster_dir"][wildcards.dataset]
+def get_cluster_list(wildcards):
+	return config["cluster_list"][wildcards.dataset]
+def get_imbalance_dir(wildcards):
+    return config["imbalance_dir"][wildcards.dataset]
+
+rule all:
+    input:
+        "{root_dir}/{dataset}/train/replicate_models/train__{tasks}__{peaks}__{replicate}/done.txt"
+
+rule basenji_train:
+    resources:
+        time = "72:00:00"
+    input:
+        model_params="{root_dir}/{dataset}/models/params_sc_kidney_regression_{tasks}.json",
+        data_dir=get_data_dir
+    output:
+        "{root_dir}/{dataset}/train/replicate_models/train__{tasks}__{peaks}__{replicate}/done.txt"
+    params:
+        float_type=get_float_type
+    shell:
+        """
+        module unload python
+        module unload cuda
+        module load ml/tensorflow/2.1.0-py37
+        export BASENJIDIR=/global/home/users/poojakathail/basenji
+        export PATH=$BASENJIDIR/bin:$PATH
+        export PYTHONPATH=$BASENJIDIR/bin:$PYTHONPATH
+        python /global/home/users/poojakathail/basenji/bin/basenji_train.py -k -o {output} --float-type {params.float_type} {input.model_params} {input.data_dir}
+        """
+
+rule basenji_reference_accuracy_by_cluster:
+    resources:
+        time = "1:00:00",
+        partition = "savio2",
+        gres = "none"
+    input:
+        targets_file="{root_dir}/{dataset}/targets.txt",
+        predict_beds="{root_dir}/{dataset}/train/replicate_models/train__{model}/predict_beds/done_predict_beds.txt"
+    output:
+        "{root_dir}/{dataset}/train/replicate_models/train__{model}/predict_beds/reference_accuracy_by_cluster.tsv"
+    params:
+        cluster_dir=get_cluster_dir
+    shell:
+        """
+        module unload python
+        module unload cuda
+        module load ml/tensorflow/2.1.0-py37        
+        export BASENJIDIR=/global/home/users/poojakathail/basenji
+        export PATH=$BASENJIDIR/bin:$PATH
+        export PYTHONPATH=$BASENJIDIR/bin:$PYTHONPATH
+        python /global/home/users/poojakathail/basenji/bin/basenji_reference_accuracy_by_cluster.py -t {input.targets_file} {output} {params.cluster_dir}/model_predictions
+        """
+
+
+rule basenji_allelic_imbalance_by_cluster:
+    resources:
+        time = "1:00:00"
+    input:
+        targets_file="{root_dir}/{dataset}/targets.txt",
+        imbalance_predictions="{root_dir}/{dataset}/train/replicate_models/train__{tasks}__{peaks}__{replicate}/allelic_imbalance/done_allelic_imbalance.txt"
+    output:
+        "{root_dir}/{dataset}/train/replicate_models/train__{tasks}__{peaks}__{replicate}/allelic_imbalance/allelic_imbalance_by_cluster.xlsx"
+    params:
+        imbalance_dir=get_imbalance_dir
+    shell:
+        """
+        module unload python
+        module unload cuda
+        module load ml/tensorflow/2.1.0-py37 
+        export BASENJIDIR=/global/home/users/poojakathail/basenji
+        export PATH=$BASENJIDIR/bin:$PATH
+        export PYTHONPATH=$BASENJIDIR/bin:$PYTHONPATH
+        python /global/home/users/poojakathail/basenji/bin/basenji_allelic_imbalance_by_cluster.py -i {params.imbalance_dir} -t {input.targets_file} {output}
+        """
+
+rule basenji_predict_cluster_bed:
+    resources:
+        time = "12:00:00"
+    input:
+        model_params="{root_dir}/{dataset}/models/params_sc_kidney_regression_{tasks}.json",
+        targets="{root_dir}/{dataset}/targets.txt",
+        model="{root_dir}/{dataset}/train/replicate_models/train__{tasks}__{peaks}__{replicate}/done.txt"
+    output:
+        "{root_dir}/{dataset}/train/replicate_models/train__{tasks}__{peaks}__{replicate}/predict_beds/done_predict_beds.txt"
+    params:
+        genome=get_genome,
+        cluster_dir=get_cluster_dir,
+        cluster_list=get_cluster_list
+    shell:
+        """
+        module unload python
+        module unload cuda
+        module load ml/tensorflow/2.1.0-py37
+        export BASENJIDIR=/global/home/users/poojakathail/basenji
+        export PATH=$BASENJIDIR/bin:$PATH
+        export PYTHONPATH=$BASENJIDIR/bin:$PYTHONPATH
+        /global/home/users/poojakathail/basenji/bin/basenji_predict_cluster_beds.sh {params.cluster_dir} {params.cluster_list} {params.genome} {input.targets} {input.model_params} {input.model} {output}
+        """
+
+rule basenji_predict_imbalance_vcf:
+    resources:
+        time = "12:00:00"
+    input:
+        model_params="{root_dir}/{dataset}/models/params_sc_kidney_regression_{tasks}.json",
+        targets="{root_dir}/{dataset}/targets.txt",
+        model="{root_dir}/{dataset}/train/replicate_models/train__{tasks}__{peaks}__{replicate}/done.txt"
+    output:
+        "{root_dir}/{dataset}/train/replicate_models/train__{tasks}__{peaks}__{replicate}/allelic_imbalance/done_allelic_imbalance.txt"
+    params:
+        genome=get_genome,
+        imbalance_dir=get_imbalance_dir
+    shell:
+        """
+        module unload python
+        module unload cuda
+        module load ml/tensorflow/2.1.0-py37
+        export BASENJIDIR=/global/home/users/poojakathail/basenji
+        export PATH=$BASENJIDIR/bin:$PATH
+        export PYTHONPATH=$BASENJIDIR/bin:$PYTHONPATH
+        /global/home/users/poojakathail/basenji/bin/basenji_predict_allelic_imbalance.sh {params.imbalance_dir} {params.genome} {input.targets} {input.model_params} {input.model} {output}
+        """
