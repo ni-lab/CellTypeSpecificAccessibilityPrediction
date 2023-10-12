@@ -12,8 +12,7 @@ This code has been tested on Python 3.7, and also makes use of Tensorflow 2.1. P
 
 Several different datasets and pre-trained models are used in these analyses. The following instructions can be used to download the relevant resources.
 
-TODO: Figure out how to host resources for download
-Much of the processed data and resources used in this repository can be found in the resources directory, and you will need to download the resources.zip from XXXXX. This includes the model parameters and model weights of tissue-specific models, and various data used for evaluating performance in different peak regions. Details on how to download additional resources, such pre-trained models and large datasets hosted elsewhere, are described below.
+Much of the processed data and resources used in this repository can be found in the resources directory. Additional resources will be made available for download soon. This includes the model parameters and model weights of tissue-specific models, and various data used for evaluating performance in different peak regions. Details on how to download additional resources, such pre-trained models and large datasets hosted elsewhere, are described below.
 
 #### Enformer
 
