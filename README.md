@@ -12,6 +12,8 @@ This code has been tested on Python 3.7, and also makes use of Tensorflow 2.1. P
 
 Several different datasets and pre-trained models are used in these analyses. The following instructions can be used to download the relevant resources.
 
+Processed data and resources used in this repository will be made available for download soon. This includes the model parameters and model weights of tissue-specific models, and various data used for evaluating performance in different peak regions. Details on how to download additional resources, such pre-trained models and large datasets hosted elsewhere, are described below.
+
 #### Enformer
 
 * The pre-trained Enformer model can be downloaded from TFhub ([link](https://tfhub.dev/deepmind/enformer/1))
@@ -29,12 +31,18 @@ Several different datasets and pre-trained models are used in these analyses. Th
 
 #### Calderon et al. data ([reference](https://www.nature.com/articles/s41588-019-0505-9))
 
-* Bigwig files used to train models can be S3 using the `download_calderon_bigwigs.sh` script ([link]())
+* Bigwig files used to train models can be S3 using the `download_bigwigs.sh` script ([link](https://github.com/ni-lab/CellTypeSpecificAccessibilityPrediction/blob/main/scripts/tissue_specific_models/preprocess_calderon_data/download_bigwigs.sh))
 * Cell type specific peaks and allelic imbalance data can be found in [Supplementary Table 1](https://static-content.springer.com/esm/art%3A10.1038%2Fs41588-019-0505-9/MediaObjects/41588_2019_505_MOESM3_ESM.xlsx) of [Calderon et al. (2019)](https://www.nature.com/articles/s41588-019-0505-9). Cell type specific peaks are found in the sheet `lineage_groups` and allelic imbalance data is found in the sheet `significant_ASCs`.
+
+#### Loeb et al. data 
+
+* These data are available upon request and will be made public upon publication of Loeb, et al. Variants in tubule epithelial regulatory elements mediate most heritable differences in human kidney function. (Submitted).
 
 #### Additional benchmark datasets
 
 * GTeX SuSie fine-mapped eQTL data from [Wang et al. (2021)](https://www.nature.com/articles/s41592-021-01252-x#ref-CR22) and [Avsec et al. (2021)](https://www.nature.com/articles/s41592-021-01252-x) can be downloaded from Google Cloud ([link](https://console.cloud.google.com/storage/browser/dm-enformer/data/gtex_fine))
-* UK Biobank GWAS summary statistics can be downloaded from the Neale lab server using the `download_gwas_sumstats.sh` script ([link]())
+* UK Biobank GWAS summary statistics can be downloaded from the Neale lab server using the `download_gwas_sumstats.sh` script ([link](https://github.com/ni-lab/CellTypeSpecificAccessibilityPrediction/blob/main/scripts/enformer/ldsc/download_gwas_sumstats.sh))
 
 ## Analysis
+
+Within the `scripts/` directory, a README within each subfolder describes how to perform the relevant analysis.
