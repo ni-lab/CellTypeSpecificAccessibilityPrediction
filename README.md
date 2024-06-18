@@ -31,7 +31,7 @@ Processed data and resources used in this repository will be made available for 
 
 #### Calderon et al. data ([reference](https://www.nature.com/articles/s41588-019-0505-9))
 
-* Bigwig files used to train models can be S3 using the `download_bigwigs.sh` script ([link](https://github.com/ni-lab/CellTypeSpecificAccessibilityPrediction/blob/main/scripts/tissue_specific_models/preprocess_calderon_data/download_bigwigs.sh))
+* Bigwig files used to train models can be downloaded from S3 using the `download_bigwigs.sh` script ([link](https://github.com/ni-lab/CellTypeSpecificAccessibilityPrediction/blob/main/scripts/tissue_specific_models/preprocess_calderon_data/download_bigwigs.sh))
 * Cell type specific peaks and allelic imbalance data can be found in [Supplementary Table 1](https://static-content.springer.com/esm/art%3A10.1038%2Fs41588-019-0505-9/MediaObjects/41588_2019_505_MOESM3_ESM.xlsx) of [Calderon et al. (2019)](https://www.nature.com/articles/s41588-019-0505-9). Cell type specific peaks are found in the sheet `lineage_groups` and allelic imbalance data is found in the sheet `significant_ASCs`.
 
 #### Loeb et al. data 
