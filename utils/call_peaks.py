@@ -26,7 +26,7 @@ def ben_hoch(p_values):
     return q_values
 
 # https://github.com/calico/basenji/blob/30b46b3eb4db413360adca50ccee97658436c86c/bin/basenji_test.py#L303
-def call_peaks(targets, return_full=False):
+def call_peaks(targets, return_full=False, fdr=0.01):
     # call peaks
     targets_peaks = []
     for ti in range(targets.shape[1]):
@@ -35,7 +35,7 @@ def call_peaks(targets, return_full=False):
         test_targets_pvals = 1 - poisson.cdf(
           np.round(test_targets_dnase_ds_ti) - 1, mu=test_targets_ti_lambda)
         test_targets_qvals = np.array(ben_hoch(test_targets_pvals))
-        test_targets_peaks = test_targets_qvals < 0.01
+        test_targets_peaks = test_targets_qvals < fdr
         targets_peaks.append(test_targets_peaks)
 
     targets_peaks = np.array(targets_peaks).T
