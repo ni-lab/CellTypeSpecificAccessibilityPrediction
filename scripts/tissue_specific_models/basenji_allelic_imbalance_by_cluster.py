@@ -33,21 +33,24 @@ def main():
     allelic_imbalance_auc_by_cluster = pd.DataFrame([], columns=cell_types)
     allelic_imbalance_cov_by_cluster = pd.DataFrame([], columns=cell_types)
     for cell_type in cell_types:
-        ti = targets[targets["identifier"] == cell_type].index.values[0]
-        clusters = [d for d in os.listdir(f"{model_dir}/allelic_imbalance/{cell_type}") if os.path.isdir(f"{model_dir}/allelic_imbalance/{cell_type}/{d}")]
+        if cell_type in targets["identifier"].values:
+            ti = targets[targets["identifier"] == cell_type].index.values[0]
+            clusters = [d for d in os.listdir(f"{model_dir}/allelic_imbalance/{cell_type}") if os.path.isdir(f"{model_dir}/allelic_imbalance/{cell_type}/{d}/sad.h5")]
 
-        for cluster in clusters:
-            vcf = pd.read_csv(f"{options.imbalance_dir}/{cell_type}/{cluster}.vcf", sep="\t", names=vcf_columns)
-            preds = h5py.File(f"{model_dir}/allelic_imbalance/{cell_type}/{cluster}/sad.h5", "r")
-            ref_preds = preds["REF"][:,:,ti].flatten().astype(np.float32)
-            alt_preds = preds["ALT"][:,:,ti].flatten().astype(np.float32)
+            for cluster in clusters:
+                vcf = pd.read_csv(f"{options.imbalance_dir}/{cell_type}/{cluster}.vcf", sep="\t", names=vcf_columns)
+                preds = h5py.File(f"{model_dir}/allelic_imbalance/{cell_type}/{cluster}/sad.h5", "r")
+                ref_preds = preds["REF"][:,:,ti].flatten().astype(np.float32)
+                alt_preds = preds["ALT"][:,:,ti].flatten().astype(np.float32)
 
-            imb_labels = (vcf["imbalance"] > 0.5).values
-            imb_preds = ref_preds/(ref_preds+alt_preds)
-            fpr, tpr, thresholds = roc_curve(imb_labels, imb_preds)
-            roc_auc, auc_cov = delong_roc_variance(imb_labels, imb_preds)
-            allelic_imbalance_auc_by_cluster.loc[cluster, cell_type] = roc_auc
-            allelic_imbalance_cov_by_cluster.loc[cluster, cell_type] = auc_cov
+                imb_labels = (vcf["imbalance"] > 0.5).values
+                imb_preds = ref_preds/(ref_preds+alt_preds)
+                if np.isnan(imb_preds).sum() > 0:
+                    roc_auc, auc_cov = np.nan, np.nan
+                else:
+                    roc_auc, auc_cov = delong_roc_variance(imb_labels, np.nan_to_num(imb_preds))
+                allelic_imbalance_auc_by_cluster.loc[cluster, cell_type] = roc_auc
+                allelic_imbalance_cov_by_cluster.loc[cluster, cell_type] = auc_cov
 
     with pd.ExcelWriter(output_file) as writer:  
         allelic_imbalance_auc_by_cluster.to_excel(writer, sheet_name='roc_auc')
